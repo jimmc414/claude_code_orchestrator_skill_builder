@@ -29,7 +29,7 @@ Each containing a SKILL.md file.
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/claude_code_orchestrator_skill_builder.git
+git clone https://github.com/jimmc414/claude_code_orchestrator_skill_builder.git
 cd claude_code_orchestrator_skill_builder
 
 # Create skills directory if it doesn't exist
@@ -43,6 +43,37 @@ cp -r parallel-retrospective ~/.claude/skills/
 # Verify
 ls ~/.claude/skills/parallel-*/SKILL.md
 ```
+
+## Option 3: Generate Fresh Skills with Builder Prompts
+
+Instead of copying pre-built skills, have Claude Code generate them from the builder prompts. This lets you customize conventions during creation.
+
+**Generate orchestrator and worker skills:**
+```
+Read @orchestrator_skill_builder_prompt.md and follow the instructions to create
+the parallel-orchestrator and parallel-worker skills in ~/.claude/skills/.
+```
+
+**Generate retrospective skill:**
+```
+Read @orchestrator_retrospective_skill_builder_prompt.md and follow the
+instructions to create the parallel-retrospective skill in ~/.claude/skills/.
+```
+
+**Generate with customizations:**
+```
+Read @orchestrator_skill_builder_prompt.md and create the skills with these
+modifications:
+- Use [WIP] instead of [CHECKPOINT] for commit prefixes
+- Use feature/ instead of work/ for branch prefixes
+- Add a requirement that workers run tests before marking [COMPLETE]
+```
+
+This approach is useful when you want to:
+- Modify commit prefix conventions
+- Change branch naming patterns
+- Add team-specific workflow requirements
+- Extend skills with additional capabilities
 
 ## Verification
 
