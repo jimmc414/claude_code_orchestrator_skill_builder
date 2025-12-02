@@ -46,28 +46,64 @@ Instead of working sequentially, spawn multiple Claude sessions that work in par
 
 ## Quick Start
 
-See [INSTALL.md](INSTALL.md) for installation.
+See [INSTALL.md](INSTALL.md) for installation. See [CHEATSHEET.md](CHEATSHEET.md) for quick reference.
 
-### Basic Usage
+## Usage
+
+### Workflow Order
 
 ```
-You: I have code_review.md with 15 issues to fix. Use the parallel-orchestrator
-     skill to split this into parallel workstreams.
+1. ORCHESTRATOR  -->  2. WORKERS (parallel)  -->  3. ORCHESTRATOR  -->  4. RETROSPECTIVE
+   (analyze/setup)       (execute tasks)           (monitor/integrate)    (optional)
+```
 
-Claude: [Analyzes document, proposes 3-4 workers, creates worktrees,
-        generates kickoff prompts]
+### Step 1: Start the Orchestrator
 
-You: [Copy each kickoff prompt into a new Claude session]
+**From documents:**
+```
+Use the parallel-orchestrator skill to analyze these documents and propose
+a parallel workflow:
 
-Workers: [Each executes their tasks, commits progress]
+@code_review.md
+@missing_tests.md
+```
 
-You: Check on worker progress.
+**From direct instructions:**
+```
+Use the parallel-orchestrator skill to split this task into parallel workstreams:
 
-Claude: [Parses commits, shows status report]
+Add user authentication with:
+- Database models for users and sessions
+- REST API endpoints for login/logout/register
+- Frontend login form and session management
+```
 
-You: All workers complete. Integrate the changes.
+### Step 2: Launch Workers
 
-Claude: [Merges branches, resolves conflicts, cleanup]
+Copy each kickoff prompt the orchestrator generates into a new Claude Code session. Workers execute independently.
+
+### Step 3: Monitor Progress
+
+```
+Check on the parallel workers and show me their status.
+```
+
+### Step 4: Integrate
+
+```
+All workers are complete. Integrate the changes and prepare for merge to main.
+```
+
+### Step 5: Retrospective (Optional)
+
+```
+Use the parallel-retrospective skill to analyze the completed workflow.
+
+Feature: user-authentication
+Integration branch: integration/user-auth
+Worker branches: work/task-1-models, work/task-2-api, work/task-3-frontend
+
+What worked well? What should we improve for next time?
 ```
 
 ## Commit Conventions
